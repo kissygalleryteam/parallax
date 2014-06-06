@@ -9,7 +9,6 @@ Parallax是一个分层视差的组件。抱着不重复造轮子的思想，它
 ## 依赖HTML结构
 
 ```
-	
 	<div class="parallax-scene">
 		<div class="layer" data-depth="0.2" data-limit-y="30" data-limit-x="30"  ><img src="images/bg.jpg"></div>
 		<div class="layer" data-depth="0.4" ><img src="images/fruit-clearness.png"></div>
