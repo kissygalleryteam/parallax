@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>First demo for parallax</title>
+        <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
+        <script src="http://g.tbcdn.cn/kissy/k/1.4.3/seed.js" ></script>
+    <script>var S = KISSY;S.config({packages:[{name:"kg",path:"http://g.tbcdn.cn/kg/",charset:"utf-8",ignorePackageNameInUri:true}]});if (S.Config.debug){var srcPath = "../";S.config({packages:[{name:"kg/parallax/2.0.0",path:srcPath,charset:"utf-8",ignorePackageNameInUri:true}]});}</script></head>
+    <body>
+
+        <h2>Demo1</h2>
+        <h2>Demo1</h2>
+
+        <div class="parallax-banner" style="height: 407px;" >
+
+            <div class="parallax-srcroot" >
+                <div class="parallax-root" style="height: 407px; visibility: hidden">
+                    <div class="parallax-scene scene" style="width: 2680px;">
+                        <div class="layer" data-depth="0.2" data-limit-y="30" style="width: 2680px; margin-top: -30px; "><img src="images/bg.jpg"></div>
+                        <div class="layer" data-depth="0.4" style="width: 2680px;"><img src="images/fruit-clearness.png"></div>
+                        <div class="layer" data-depth="2.0.0" style="width: 2680px;"><img src="images/fruit-blur.png"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script>
+
+            //config debug info
+            KISSY.config({
+                packages : {
+                    "parallax" : {
+                        base    : "../",
+                        debug   : true,
+                        ignorePackageNameInUri:true
+                    }
+                }
+            });
+
+            KISSY.use("node,parallax/index, ua", function(S, Node, Parallax, UA){
+
+
+                var $root   = S.all(".parallax-root");
+                var $scene  = $root.all(".scene");
+                var $win    = S.all(window);
+
+                function onResize(){
+                    $root.scrollLeft(($scene.width() - $root.width()) / 2 );
+                }
+                onResize();
+                S.all(window).on("resize", onResize);
+
+                $root.css("visibility","visible");
+
+                ///////////////////////
+
+                new Parallax(".parallax-scene", {
+                    frictionY : 0.05,
+                    frictionX : 0.05
+                });
+
+                ///////////////////////
+
+                /// 以下为一个视差滚动的实现，暂未抽象插件
+
+                var $scrRoot    = S.all(".parallax-srcroot");
+                var rootsOffset = $scrRoot.offset();
+                var rootsHeight = $scrRoot.height();
+
+                $scrRoot.css("position", "relative").css("overflow", "hidden");
+
+                function onScroll(){
+                    var winScrTop   = $win.scrollTop();
+                    var differ      = winScrTop-rootsOffset.top;
+                    var height      = Math.max(0,rootsHeight-differ);
+                    var marginBottom= Math.min(differ,rootsHeight);
+                    if(differ > 0){
+                        $scrRoot.css({
+                            "position": "fixed",
+                            "width":"2.0.0%",
+                            "top":"0",
+                            "height":height
+                        });
+                    }else{
+                        $scrRoot.css({
+                            "position": "relative",
+                            "width":"auto",
+                            "top":"auto",
+                            "height":"auto"
+                        });
+                    }
+                }
+                onScroll();
+                S.all(window).on("scroll", onScroll);
+
+
+
+            });
+        </script>
+    <h1>TEST</h1>
+    </body>
+</html>
+
