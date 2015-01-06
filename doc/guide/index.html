@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>parallax</title>
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://docs.kissyui.com/1.4/source/guideline/templates/assets/com-prettify.css">
+    <link rel="stylesheet" href="http://docs.kissyui.com/1.4/source/guideline/templates/assets/com.css">
+    <script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="http://cdn.staticfile.org/prettify/r298/prettify.min.js"></script>
+    <script src="http://g.tbcdn.cn/kissy/k/1.4.8/seed-min.js" data-config="{combine:true}"></script>
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <div id="header"><a href="http://docs.kissyui.com/" class="logo">kissy</a>
+      <nav><a href="http://docs.kissyui.com/1.4/docs/html/coms.html">优秀组件推荐</a></nav>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3 bs-docs-sidebar">
+          <ul data-spy="affix" data-offset-top="0" class="nav nav-list bs-docs-sidenav"></ul>
+        </div>
+        <div class="span9 bs-docs-content">
+          <h1 data-id="undefined" class="title">parallax</h1>
+          <p class="author-wrapper"><span>组件有问题？旺旺联系作者：</span><a href="https://github.com/guangwong" target="_blank" data-name="九十" class="author"><img src="https://avatars.githubusercontent.com/u/629202?v=2&amp;s=60" alt="九十"></a><span class="author-name">九十</span>
+          </p>
+          <div class="common-link"><a href="../demo/index.html" target="_blank" class="demo">示例</a><a href="https://github.com/kissygalleryteam/parallax" target="_blank" class="source">源码</a></div>
+          <p class="com-info"><span class="info-label">View</span><span data-com="parallax" class="J_View">791</span></p>
+          <p class="com-info"><span class="info-label">所属分类</span><a href="http://kpm.taobao.net/list/动画&amp;效果">动画&amp;效果</a><span class="info-label tag-label">组件标签</span><a href="http://kpm.taobao.net/list/tag?tag="></a>
+          </p>
+          <p class="com-info"><span class="info-label">kissy版本</span><span>1.4.X</span>
+          </p><h2 id="-">综述</h2>
+<p>Parallax是一个分层视差的组件。抱着不重复造轮子的思想，它基于一个jQuery插件重构、优化、精简而来。</p>
+<p>基本上和jQuery版本的已经差异很多了。基于 requestAnimationFrame 实现，低版本做了额外 setTimeout 兼容。并使用了 CSS 的 3D / 2D 加速特性，效率和流畅度上得以保证。  </p>
+<ul>
+<li>版本：2.0.0</li>
+<li>作者：九十</li>
+<li>demo：<a href="http://kg.kissyui.com/parallax/2.0.0/demo/index.html">http://kg.kissyui.com/parallax/2.0.0/demo/index.html</a></li>
+</ul>
+<h2 id="-html-">依赖HTML结构</h2>
+<pre><code>    &lt;div class=&quot;parallax-scene&quot;&gt;
+        &lt;div class=&quot;layer&quot; data-depth=&quot;0.2&quot; data-limit-y=&quot;30&quot; data-limit-x=&quot;30&quot;  &gt;&lt;img src=&quot;images/bg.jpg&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;layer&quot; data-depth=&quot;0.4&quot; &gt;&lt;img src=&quot;images/fruit-clearness.png&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;layer&quot; data-depth=&quot;2.0.0&quot;&gt;&lt;img src=&quot;images/fruit-blur.png&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+</code></pre><h2 id="-">初始化组件</h2>
+<pre><code>S.use(&#39;kg/parallax/2.0.0/index&#39;, function (S, Parallax) {
+    new Parallax(&quot;.parallax-scene&quot;, {
+        frictionY : 0.05,
+        frictionX : 0.05
+    });
+})
+</code></pre><h2 id="api-">API说明</h2>
+<h3 id="class-parallax">Class Parallax</h3>
+<ul>
+<li><code>Constructor</code><ul>
+<li><code>scene</code> ： 关联的Dom结构根节点，上面代码中的 <code>.parallax-scene</code> 部分</li>
+<li><code>options</code> ： 如下参数<ul>
+<li><code>scalarX</code> ：标量X，默认10，越大移动幅度越大</li>
+<li><code>scalarX</code> ：标量X，默认10，越大移动幅度越大</li>
+<li><code>frictionX</code> ：摩擦系数X，默认0.1，越大运动越快速</li>
+<li><code>frictionY</code> ：摩擦系数Y，默认0.1，越大运动越快速</li>
+<li><code>originX</code> ：计算时使用的X中心点，默认0.5</li>
+<li><code>originY</code> ：计算时使用的Y中心点，默认0.5</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="html-">HTML 钩子</h3>
+<ul>
+<li><code>.layer</code><ul>
+<li><code>HTML属性</code><ul>
+<li><code>data-depth</code>：景深值，不可缺失，无默认值。0为不移动。</li>
+<li><code>data-limit-y</code>：Y轴最大的移动幅度，像素单位，可省略</li>
+<li><code>data-limit-x</code>：X轴最大的移动幅度，像素单位，可省略</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          <div style="display:none;"><script type="text/javascript" src="http://tajs.qq.com/stats?sId=36378479" charset="UTF-8"></script></div>
+          <script src="http://docs.kissyui.com/1.4/source/guideline/templates/assets/com.js"></script>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
